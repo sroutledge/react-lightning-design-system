@@ -64,7 +64,7 @@ export default class FormElement extends React.Component {
     const { id, label, required } = this.props;
     return (
       label ?
-      <label className='slds-form-element__label' htmlFor={ id }>
+      <label key={ `label-${id}` } className='slds-form-element__label' htmlFor={ id }>
         { label }
         {
           required ?
@@ -85,7 +85,7 @@ export default class FormElement extends React.Component {
        undefined) :
       undefined;
     return (
-      <div className='slds-form-element__control'>
+      <div key={ `control-${id}` } className='slds-form-element__control'>
         { children }
         {
           errorMessage ?
@@ -97,7 +97,7 @@ export default class FormElement extends React.Component {
   }
 
   render() {
-    const { dropdown, className, totalCols, cols, error, children, ...props } = this.props;
+    const { dropdown, className, totalCols, cols, error, children, id ...props } = this.props;
     const labelElem = this.renderLabel();
     if (dropdown) {
       const controlElem = this.renderControl({ children });
@@ -106,7 +106,7 @@ export default class FormElement extends React.Component {
       const outerControlElem = this.renderControl({ error, children: dropdown });
       const outerFormElemChildren = [
         innerFormElem,
-        <div className='react-slds-dropdown-control-wrapper'>{ outerControlElem }</div>,
+        <div key={ `dropdown-${id}` } className='react-slds-dropdown-control-wrapper'>{ outerControlElem }</div>,
       ];
       const outerFormClassName = classnames('react-slds-dropdown-form-element', className);
       return this.renderFormElement({
