@@ -9,7 +9,7 @@ describe('Form Element', () => {
 
     it('should add slds-has-error class to the top-level div when error text is provided', () => {
 
-      const input = [<input type="text" value="abc" />];
+      const input = <input type="text" value="abc" />;
 
       const fe = new FormElement({
         id: '123', className: 'test', label: 'Hello World', error: 'not-real',
@@ -27,7 +27,7 @@ describe('Form Element', () => {
     });
 
     it('should render a label + control if dropdown is false', () => {
-      const input = [<input type="text" value="abc" />];
+      const input = <input type="text" value="abc" />;
 
       const fe = new FormElement({
         id: '123', className: 'test', label: 'Hello World',
@@ -45,7 +45,7 @@ describe('Form Element', () => {
     });
 
     it('should render a dropdown when dropdown is true', () => {
-      const children = [<input type="text" value="abc" />];
+      const children = <input type="text" value="abc" />;
       const dropdown = <span>My Dropdown</span>;
       const fe = new FormElement({
         dropdown: dropdown,
@@ -69,7 +69,7 @@ describe('Form Element', () => {
     });
 
     it('should render a dropdown with the correct cols and total cols information', () => {
-      const children = [<input type="text" value="abc" />];
+      const children = <input type="text" value="abc" />;
       const dropdown = <span>My Dropdown</span>;
       const fe = new FormElement({
         dropdown, cols: 6, totalCols: 1,
