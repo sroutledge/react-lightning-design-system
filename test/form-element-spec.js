@@ -1,67 +1,57 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import assert from 'power-assert';
 
 import FormElement from '../src/scripts/FormElement';
 
 describe('Form Element', () => {
   describe('render', () => {
-
     it('should add slds-has-error class to the top-level div when error text is provided', () => {
-
-      const input = <input type="text" value="abc" />;
-
+      const input = <input type='text' value='abc' />;
       const fe = new FormElement({
         id: '123', className: 'test', label: 'Hello World', error: 'not-real',
-        children: input
+        children: input,
       });
-
-      const expected =
-        <div className="slds-form-element slds-has-error test">
-          { fe.renderLabel() }
-          { fe.renderControl({ children: input, error: 'not-real' }) }
-        </div>
-      ;
+      const expected = (<div className='slds-form-element slds-has-error test'>
+        { fe.renderLabel() }
+        { fe.renderControl({ children: input, error: 'not-real' }) }
+      </div>);
 
       expect(shallow(fe.render()).contains(expected)).to.be.true;
     });
 
     it('should render a label + control if dropdown is false', () => {
-      const input = <input type="text" value="abc" />;
+      const input = <input type='text' value='abc' />;
 
       const fe = new FormElement({
         id: '123', className: 'test', label: 'Hello World',
-        children: input
+        children: input,
       });
 
-      const expected =
-        <div className="slds-form-element test">
-          { fe.renderLabel() }
-          { fe.renderControl({ children: input }) }
-        </div>
-      ;
+      const expected = (<div className='slds-form-element test'>
+        { fe.renderLabel() }
+        { fe.renderControl({ children: input }) }
+      </div>);
 
       expect(shallow(fe.render()).contains(expected)).to.be.true;
     });
 
     it('should render a dropdown when dropdown is true', () => {
-      const children = <input type="text" value="abc" />;
+      const children = <input type='text' value='abc' />;
       const dropdown = <span>My Dropdown</span>;
       const fe = new FormElement({
-        dropdown: dropdown,
-        id: '123', className: 'test', label: 'Hello World', children
+        dropdown, id: '123', className: 'test', label: 'Hello World', children,
       });
 
-      const expected =
-      <div className="slds-form-element react-slds-dropdown-form-element test">
-        <div className="slds-form-element">
+      const expected = (<div className='slds-form-element react-slds-dropdown-form-element test'>
+        <div className='slds-form-element'>
           { fe.renderLabel() }
           { fe.renderControl({ children }) }
         </div>
         <div className='react-slds-dropdown-control-wrapper'>
           { fe.renderControl({ children: dropdown }) }
         </div>
-      </div>;
+      </div>);
 
       const component = shallow(fe.render());
 
@@ -69,56 +59,55 @@ describe('Form Element', () => {
     });
 
     it('should render a dropdown with the correct cols and total cols information', () => {
-      const children = <input type="text" value="abc" />;
+      const children = <input type='text' value='abc' />;
       const dropdown = <span>My Dropdown</span>;
       const fe = new FormElement({
         dropdown, cols: 6, totalCols: 1,
-        id: '123', className: 'test', label: 'Hello World', children
+        id: '123', className: 'test', label: 'Hello World', children,
       });
 
-      const expected =
-      <div className="slds-form-element slds-size--6-of-1 react-slds-dropdown-form-element test">
-        <div className="slds-form-element">
+      const expected = (<div className='slds-form-element slds-size--6-of-1 react-slds-dropdown-form-element test'>
+        <div className='slds-form-element'>
           { fe.renderLabel() }
           { fe.renderControl({ children }) }
         </div>
         <div className='react-slds-dropdown-control-wrapper'>
           { fe.renderControl({ children: dropdown }) }
         </div>
-      </div>;
+      </div>);
 
       const component = shallow(fe.render());
 
       expect(component.contains(expected)).to.be.true;
-    })
+    });
   });
 
   describe('renderLabel', () => {
     it('render an astericks in addition to the label if the field is required', () => {
-        const fe = new FormElement({ id: '123', label: 'Hello World', required: true });
-        const component = shallow(fe.renderLabel());
-        expect(component.contains(
-          <label className='slds-form-element__label' htmlFor="123">
-            Hello World
-            <abbr className='slds-required'>*</abbr>
-          </label>)
-        ).to.be.true;
+      const fe = new FormElement({ id: '123', label: 'Hello World', required: true });
+      const component = shallow(fe.renderLabel());
+      expect(component.contains(
+        <label className='slds-form-element__label' htmlFor='123'>
+          Hello World
+          <abbr className='slds-required'>*</abbr>
+        </label>)
+      ).to.be.true;
     });
 
     it('should take in a string and return a label tag containg the string', () => {
-        const fe = new FormElement({ id: '123', label: 'Hello World' });
-        const component = shallow(fe.renderLabel());
+      const fe = new FormElement({ id: '123', label: 'Hello World' });
+      const component = shallow(fe.renderLabel());
 
-        expect(component.contains(
-          <label className='slds-form-element__label' htmlFor="123">
-            Hello World
-          </label>)
-        ).to.be.true;
+      expect(component.contains(
+        <label className='slds-form-element__label' htmlFor='123'>
+          Hello World
+        </label>)
+      ).to.be.true;
     });
 
     it('should return undefined if no label is set', () => {
-        const fe = new FormElement({ id: '123', label: null });
-        assert(fe.renderLabel() === undefined);
+      const fe = new FormElement({ id: '123', label: null });
+      assert(fe.renderLabel() === undefined);
     });
   });
 
@@ -138,8 +127,9 @@ describe('Form Element', () => {
       const fe = new FormElement({ id: '123', label: 'Hello World' });
       const component = shallow(fe.renderControl({
         children: [<span key={'h'}>Hello</span>, <span key={'w'}>World</span>],
-        error: 'some text'
-       }));
+        error: 'some text',
+      }));
+
       expect(component.contains(
         <div className='slds-form-element__control'>
           <span>Hello</span>
@@ -153,8 +143,9 @@ describe('Form Element', () => {
       const fe = new FormElement({ id: '123', label: 'Hello World' });
       const component = shallow(fe.renderControl({
         children: [<span key={'h'}>Hello</span>, <span key={'w'}>World</span>],
-        error: { message: 'some text' }
-       }));
+        error: { message: 'some text' },
+      }));
+
       expect(component.contains(
         <div className='slds-form-element__control'>
           <span>Hello</span>
@@ -164,4 +155,4 @@ describe('Form Element', () => {
       ).to.be.true;
     });
   });
-})
+});
