@@ -15,10 +15,6 @@ export function clearSymbolPaths() {
   });
 }
 
-export function getAllSymbolsPaths() {
-  return symbolFiles;
-}
-
 // get the file path for a single symbols file by type
 export function getSymbolsFilePath(type) {
   return symbolFiles[type];

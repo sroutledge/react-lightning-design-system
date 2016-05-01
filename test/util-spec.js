@@ -6,6 +6,21 @@ describe('util', () => {
     clearSymbolPaths();
   });
 
+  describe('clearSymbolPaths', () => {
+    it('should empty the symbol file paths that were previously set', () => {
+      const expected = {
+        foo: 'bar/symbols.svg',
+        other: 'thing/is/in/some/path/banan',
+      };
+
+      const result = setSymbolsFilePath(expected);
+
+      clearSymbolPaths();
+
+      assert(Object.keys(result).length === 0);
+    });
+  });
+
   describe('setSymbolsFilePath', () => {
     it('should update the symbol file paths based on the object passed in', () => {
       const expected = {
