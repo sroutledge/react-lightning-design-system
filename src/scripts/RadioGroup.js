@@ -36,7 +36,7 @@ export default class RadioGroup extends React.Component {
        undefined) :
       undefined;
     return (
-      <fieldset className={ grpClassNames } style={ grpStyles } { ...props } >
+      <fieldset onChange={ onChange } className={ grpClassNames } style={ grpStyles } { ...props } >
         <legend className='slds-form-element__label slds-form-element__label--top'>
           { label }
           {
