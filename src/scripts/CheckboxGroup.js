@@ -7,6 +7,12 @@ const addUniqueValue = (values, value) => {
 }
 
 export default class CheckboxGroup extends React.Component {
+  constructor(props){
+    super(props);
+    this.onChange = this.onChange.bind(this);
+    this.renderControl = this.renderControl.bind(this);
+  }
+
   onChange(e) {
     const { value } = this.props;
 
@@ -46,7 +52,7 @@ export default class CheckboxGroup extends React.Component {
        undefined) :
       undefined;
     return (
-      <fieldset className={ grpClassNames } style={ grpStyles } onChange={ this.onChange.bind(this) } { ...props } >
+      <fieldset className={ grpClassNames } style={ grpStyles } onChange={ this.onChange } { ...props } >
         <legend className='slds-form-element__label slds-form-element__label--top'>
           { label }
           {
@@ -56,7 +62,7 @@ export default class CheckboxGroup extends React.Component {
           }
         </legend>
         <div className='slds-form-element__control'>
-          { React.Children.map(children, this.renderControl.bind(this)) }
+          { React.Children.map(children, this.renderControl) }
           {
             errorMessage ?
             <div className='slds-form-element__help'>{ errorMessage }</div> :
