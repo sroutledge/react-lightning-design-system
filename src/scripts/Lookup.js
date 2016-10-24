@@ -468,8 +468,10 @@ export default class Lookup extends Component {
     this.onLookupRequest('');
     setTimeout(() => {
       const searchElem = this.search;
-      const inputElem = searchElem.querySelector('input');
-      inputElem.focus();
+      if (searchElem){
+        const inputElem = searchElem.querySelector('input');
+        inputElem.focus();
+      }
     }, 10);
   }
 
